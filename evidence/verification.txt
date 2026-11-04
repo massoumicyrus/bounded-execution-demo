@@ -1,0 +1,12 @@
+
+> bounded-execution-demo@0.1.0 verify
+> node verify.mjs evidence
+
+{
+  "valid": true,
+  "scenarios": 26,
+  "events": 555,
+  "effects": 8,
+  "signedGatewayRecords": 36,
+  "journalHead": "b6e6a6fc3a0c46b15f03dfcd1906d18d64ca48ad3eb33890a8948a00a5ed9e68"
+}

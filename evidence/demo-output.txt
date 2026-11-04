@@ -1,0 +1,31 @@
+
+> bounded-execution-demo@0.1.0 demo
+> node demo.mjs
+
+PASS authorized action is appended and independently read back
+PASS APS scope denial locks alternate REST and MCP routes
+PASS new request, object alias, child, and caller-selected turn cannot clear denial
+PASS next turn reevaluates a continuing denial
+PASS approval survives child handoff and complete service restart
+PASS agent cannot approve; altered arguments and wrong approval hashes fail
+PASS undelivered and expired approvals cannot authorize execution
+PASS human denial stays blocked and delivered requests remain durable
+PASS transitive invalidation blocks a whole declared action family
+PASS unknown and stale prerequisite observations fail closed
+PASS repairing a prerequisite cannot clear its lock within the same turn
+PASS child scope cannot expand and ancestor session revocation propagates
+PASS a permitted bounded child executes only the assigned effect
+PASS an MCP tool call invokes the bounded child and inherits its action lock
+PASS success-looking executor return without effect is unverified
+PASS lost response reconciles the effect without duplicate execution
+PASS executor failure before commit produces neither effect nor success
+PASS concurrent retries produce exactly one controlled effect
+PASS revocation between preauthorization and commit blocks the effect
+PASS dependency change between preauthorization and commit blocks the effect
+PASS new turn fences a previously authorized in-flight call
+PASS two isolated APS gateways distinguish revocation and unknown freshness
+PASS a partition alone cannot turn a cached APS permit into authorization
+PASS revocation cannot be cleared by a new turn or refresh
+PASS cross-object tokens, unknown tools and fabricated success fields are rejected
+PASS past verified effects remain historical facts after revocation
+Evidence written: 26 scenarios, 8 verified test effects.

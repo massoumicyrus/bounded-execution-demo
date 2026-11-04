@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Approve a test action</title>
+<style>body{font:16px system-ui;max-width:38rem;margin:24px auto;padding:0 16px;line-height:1.5}input,button{font:inherit;padding:10px;max-width:100%;box-sizing:border-box}input{width:100%}section{border-top:1px solid #aaa;margin-top:20px;padding-top:12px}pre{white-space:pre-wrap;overflow-wrap:anywhere}button{margin:8px 8px 8px 0}#message{min-height:24px}</style>
+<h1>Approve a test action</h1>
+<p>These requests append records to the demonstration's test database.</p>
+<label for="credential">Reviewer credential</label><input id="credential" type="password" autocomplete="off">
+<button id="load">Load requests</button><p id="message" role="status"></p><main id="requests"></main>
+<script>
+const credential=document.querySelector('#credential'), requests=document.querySelector('#requests'), message=document.querySelector('#message');
+async function call(path,body){const response=await fetch(path,{method:'POST',headers:{authorization:'Bearer '+credential.value,'content-type':'application/json'},body:JSON.stringify(body)});const result=await response.json();if(!response.ok)throw Error(result.error);return result;}
+async function load(){try{const items=await call('/human/inbox',{presented:true});requests.replaceChildren();message.textContent=items.length+' pending request'+(items.length===1?'':'s');
+for(const item of items){const section=document.createElement('section');section.dataset.objectId=item.objectId;
+const detail=document.createElement('pre');detail.textContent='Append to: '+item.target+'\nValue: '+item.value+'\nExpires: '+new Date(item.expiresAt).toLocaleString();section.append(detail);
+for(const decision of ['approved','denied']){const button=document.createElement('button');button.textContent=decision==='approved'?'Approve':'Deny';button.onclick=async()=>{try{await call('/human/decide',{objectId:item.objectId,actionHash:item.actionHash,decision});await load();message.textContent=decision==='approved'?'Approved. The agent may attempt this exact action.':'Denied. The action remains blocked.';}catch(e){message.textContent=e.message;}};section.append(button);}requests.append(section);}}
+catch(e){message.textContent=e.message;}}
+document.querySelector('#load').onclick=load;
+</script></html>

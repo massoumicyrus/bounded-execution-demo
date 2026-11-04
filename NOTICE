@@ -1,0 +1,8 @@
+Bounded execution demonstration
+Copyright 2026 Cyrus Massoumi
+
+Original implementation prepared with Codex.
+APS adapter uses agent-passport-system 1.46.0 by Tymofii Pidlisnyi, Apache-2.0.
+The Values Floor loaded from that dependency identifies its license as CC BY 4.0.
+Browser validation uses Playwright, Apache-2.0.
+Dependencies are installed separately; their source notices remain in their packages.

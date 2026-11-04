@@ -1,0 +1,67 @@
+$ node --version
+v26.5.0
+
+$ npm ci --ignore-scripts --no-audit --no-fund
+npm warn deprecated uuid@9.0.1: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
+
+added 12 packages in 753ms
+
+$ npm run verify
+
+> bounded-execution-demo@0.1.0 verify
+> node verify.mjs evidence
+
+{
+  "valid": true,
+  "scenarios": 26,
+  "events": 555,
+  "effects": 8,
+  "signedGatewayRecords": 36,
+  "journalHead": "b6e6a6fc3a0c46b15f03dfcd1906d18d64ca48ad3eb33890a8948a00a5ed9e68"
+}
+
+$ npm test
+
+> bounded-execution-demo@0.1.0 test
+> node --test --test-concurrency=1 test/*.test.mjs
+
+PASS authorized action is appended and independently read back
+PASS APS scope denial locks alternate REST and MCP routes
+PASS new request, object alias, child, and caller-selected turn cannot clear denial
+PASS next turn reevaluates a continuing denial
+PASS approval survives child handoff and complete service restart
+PASS agent cannot approve; altered arguments and wrong approval hashes fail
+PASS undelivered and expired approvals cannot authorize execution
+PASS human denial stays blocked and delivered requests remain durable
+PASS transitive invalidation blocks a whole declared action family
+PASS unknown and stale prerequisite observations fail closed
+PASS repairing a prerequisite cannot clear its lock within the same turn
+PASS child scope cannot expand and ancestor session revocation propagates
+PASS a permitted bounded child executes only the assigned effect
+PASS an MCP tool call invokes the bounded child and inherits its action lock
+PASS success-looking executor return without effect is unverified
+PASS lost response reconciles the effect without duplicate execution
+PASS executor failure before commit produces neither effect nor success
+PASS concurrent retries produce exactly one controlled effect
+PASS revocation between preauthorization and commit blocks the effect
+PASS dependency change between preauthorization and commit blocks the effect
+PASS new turn fences a previously authorized in-flight call
+PASS two isolated APS gateways distinguish revocation and unknown freshness
+PASS a partition alone cannot turn a cached APS permit into authorization
+PASS revocation cannot be cleared by a new turn or refresh
+PASS cross-object tokens, unknown tools and fabricated success fields are rejected
+PASS past verified effects remain historical facts after revocation
+✔ end-to-end enforcement scenarios (2996.684791ms)
+✔ recorded evidence and APS signatures verify offline (21.038792ms)
+✔ missing effect cannot be masked by an asserted success (17.649541ms)
+✔ rewriting and rehashing a forbidden effect still fails semantic verification (6.201666ms)
+✔ changed APS request signatures are rejected (4.153166ms)
+✔ mobile approval page presents exact action and approval unblocks it (642.647166ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3991.089792
